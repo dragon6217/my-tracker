@@ -1,0 +1,8 @@
+
+{% for item in items %}
+<form>
+    <span>아이템 번호: {{ item }}</span>
+    <input type="hidden" name="id" value="{{ item }}">
+    <button type="submit">삭제</button>
+</form>
+{% endfor %}

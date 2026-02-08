@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이슈 트래커</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+    <div class="bg-white p-8 rounded-2xl shadow-xl text-center">
+        <h1 class="text-3xl font-bold text-blue-600 mb-4">{{ message }}</h1>
+        
+        <p class="text-gray-600 mb-6">여기는 Tailwind로 디자인된 박스입니다.</p>
+
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full transition"
+                hx-get="/hello" 
+                hx-target="#result">
+            클릭해보세요
+        </button>
+        
+        <div id="result" class="mt-4 font-semibold text-green-500"></div>
+
+        <div class="bg-white p-8 rounded-2xl shadow-xl w-96">
+            <h1 class="text-2xl font-bold mb-6 text-gray-800">이슈 등록</h1>
+
+            <form hx-post="/add-issue" hx-target="#issue-list" hx-swap="afterbegin" class="flex gap-2 mb-6">
+                <input type="text" name="issue_title" placeholder="이슈를 입력하세요..." 
+                    class="flex-1 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                <button type="submit" 
+                        class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+                    추가
+                </button>
+            </form>
+
+            <div id="issue-list">
+                </div>
+    </div>
+</body>
+</html>

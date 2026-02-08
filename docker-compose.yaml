@@ -1,0 +1,26 @@
+services:
+  web:
+    build: .
+    ports:
+      - "9998:9998" # 호스트 9998 -> 컨테이너 9998
+    volumes:
+      - ./app:/app    # 현재 폴더를 컨테이너와 동기화 (실시간 수정 반영의 핵심)
+    environment:
+      # 컨테이너 내부에서는 서비스 이름인 'db'와 기본 포트 '5432'로 통신합니다.
+      - DATABASE_URL=postgresql://user:pass@db:5432/dbname
+    depends_on:
+      - db
+
+  db:
+    image: postgres:15
+    ports:
+      - "5430:5432" # 호스트 5430 -> 컨테이너 5432 (요청하신 설정)
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=pass
+      - POSTGRES_DB=dbname
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data: # 컨테이너를 꺼도 데이터가 유지되도록 저장소 설정
